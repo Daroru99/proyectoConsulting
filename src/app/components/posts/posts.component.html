@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Consulting</title>
+</head>
+
+<body>
+    <h1 class="p-2"><strong>Movimientos legales</strong></h1>
+    <div class="col-md">
+        <h1 class="p-2"><strong>Buscador</strong></h1>
+        <div class="form-group">
+            <input type="text" class="form-control " placeholder="Buscar" [(ngModel)]="filterPost" name="filterPost">
+        </div>
+    </div>
+    <h1 class="p-2"><strong>Lista de los movimientos</strong></h1>
+    <div class="table-responsive">
+        <table class="table table-hover ">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">IdMov</th>
+                    <th scope="col">IdProceso</th>
+                    <th scope="col">apoderado</th>
+                    <th scope="col">Fecha creación</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of items | slice:desde:hasta | filter:filterPost; let i=index ">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{item.idMov}}</td>
+                    <td>{{item.idProceso}}</td>
+                    <td>{{item.apoderado}}</td>
+                    <td>{{item.fechaCreacion}}</td>
+                    <td><button class="btn btn-outline-dark" md-button (click)="onClick(contacto)">Detalles</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <mat-paginator [length]="items.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="cambiarpagina($event)">
+    </mat-paginator>
+    <mat-card *ngIf="contacto">
+        <mat-card-title>
+            Detalles del cliente
+        </mat-card-title>
+        <mat-card-content>
+            idMov: {{ contacto.idMov}}<br> idProceso: {{ contacto.idProceso}}<br> cliente: {{ contacto.cliente}}<br> area: {{ contacto.area}}<br> radicado: {{ contacto.radicado}}<br> fechaCreacion: {{ contacto.fechaCreacion}}<br> estado: {{ contacto.estado}}<br>            servicioActual: {{ contacto.servicioActual}}<br> tipoMov: {{ contacto.tipoMov}}<br> detalle: {{ contacto.detalle}}<br> creador: {{ contacto.creador}}<br> fechaProxAudiencia: {{ contacto.fechaProxAudiencia}}<br> horaProxAudiencia: {{ contacto.horaProxAudiencia}}<br>            fechaVencimientos: {{ contacto.fechaVencimientos}}<br> archivoPdf: {{ contacto.archivoPdf}}<br> tieneArchivo: {{ contacto.tieneArchivo}}<br> aprobador: {{ contacto.aprobador}}<br> fechaAprobacion: {{ contacto.fechaAprobacion}}<br> apoderado:
+            {{ contacto.apoderado}}
+            <br> robot: {{ contacto.robot}}<br> ciudad: {{ contacto.ciudad}}<br> despacho: {{ contacto.despacho}}<br> demandante: {{ contacto.demandante}}<br> demandado: {{ contacto.demandado}}<br> idCliente: {{ contacto.idCliente}}<br> zona: {{ contacto.zona}}<br>            estadoProceso: {{ contacto.estadoProceso}}<br> analId: {{ contacto.analId}}<br> idVigilancia: {{ contacto.idVigilancia}}<br>
+            <button md-button (click)="onCerrar()">Cerrar</button>
+        </mat-card-content>
+    </mat-card>
+    <app-details [contacto]="contacto" (cerrar)="cerrarDetalles()">
+
+    </app-details>
+</body>
+
+</html>
